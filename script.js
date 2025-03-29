@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const cartItems = document.getElementById('cart-items')
     const emptyCartMessage = document.getElementById('empty-cart')
     const cartTotalMessage = document.getElementById('cart-total')
-    const totalPriceMessage = document.getElementById('total-price')
+    const totalPriceDisplay = document.getElementById('total-price')
     const checkOutBtn = document.getElementById('checkout-btn')
     
     const products = [
@@ -41,22 +41,22 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if (cart.length > 0){
             emptyCartMessage.classList.add("hidden");
             cartTotalMessage.classList.remove("hidden");
-            cart.forEach((product) => {
-                const productDiv = document.createElement("div");
-                productDiv.classList.add('product');
-                productDiv.innerHTML = `
-                <span>${product.name} - $${product.price.toFixed(2)}</span>
-                <button data-id="${product.id}">Remove</button>
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement("div");
+                cartItem.innerHTML = `
+                <span>${item.name} - $${item.price.toFixed(2)}</span>
                 `
-                cartItems.appendChild(productDiv);
-                totalPrice += product.price;
-            });
-            totalPriceMessage.textContent = `$${totalPrice.toFixed(2)}`;
-            checkOutBtn.addEventListener('click', ()=>{
-                alert(`Total price: $${totalPrice.toFixed(2)}`);
-            })
+                cartItems.appendChild(cartItem);
+                totalPrice += item.price;    
+                totalPriceDisplay.textContent = `$${totalPrice.toFixed(2)}`; 
+            });           
         } else {
             emptyCartMessage.classList.remove("hidden");
         }
     }
+    checkOutBtn.addEventListener('click', ()=>{
+        cart.length = 0;
+        alert(`Your items checked out successfully !`);
+        renderCart();
+    })
 })
