@@ -59,6 +59,22 @@
   #cart-items {
     margin-bottom: 20px;
   }
+  #cart-items button {
+    background-color: #6200ea;
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  } 
+  
+  #cart-items button:hover {
+    background-color: #3700b3;
+  }
+  #cart-items div {
+    margin-bottom: 10px;
+  }
   
   #cart-total {
     text-align: right;

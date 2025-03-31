@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", ()=>{
-    const cart = [];
+    const cart = JSON.parse(localStorage.getItem("cart"))||[];
     const productList = document.getElementById('product-list')
     const cartItems = document.getElementById('cart-items')
     const emptyCartMessage = document.getElementById('empty-cart')
@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     function addToCart(product){
         cart.push(product);
+        saveCartItems();
         renderCart();
     }
     function renderCart(){
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 const cartItem = document.createElement("div");
                 cartItem.innerHTML = `
                 <span>${item.name} - $${item.price.toFixed(2)}</span>
+                <button data-index="${index}">Remove</button>
                 `
                 cartItems.appendChild(cartItem);
                 totalPrice += item.price;    
@@ -52,11 +54,27 @@ document.addEventListener("DOMContentLoaded", ()=>{
             });           
         } else {
             emptyCartMessage.classList.remove("hidden");
+            totalPriceDisplay.textContent = `$0.00`
         }
+        cart.forEach((item, index) => {
+            const removeBtn = cartItems.querySelector(`[data-index="${index}"]`);
+            removeBtn.addEventListener('click', ()=>{
+                cart.splice(index, 1);
+                renderCart();
+                saveCartItems();
+            })
+        });
     }
     checkOutBtn.addEventListener('click', ()=>{
         cart.length = 0;
         alert(`Your items checked out successfully !`);
         renderCart();
+        saveCartItems();
     })
+
+    renderCart();
+
+    function saveCartItems(){
+        localStorage.setItem("cart",JSON.stringify(cart))
+    }
 })
