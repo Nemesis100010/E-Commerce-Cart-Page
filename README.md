@@ -39,7 +39,7 @@ Storage: LocalStorage for cart persistence
 
 1️⃣ Clone the Repository
 
-git clone https://github.com/your-username/ecommerce-cart.git cd ecommerce-cart
+git clone https://github.com/Nemesis100010/E-Commerce-Cart-Page.git cd E-Commerce-Cart-Page
 
 2️⃣ Open in Browser
 
